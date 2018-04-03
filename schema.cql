@@ -1,7 +1,7 @@
 CREATE KEYSPACE cassandratweet WITH replication = {'class': 'NetworkTopologyStrategy', 'dc1': '1'}  AND durable_writes = true;
 
 
-CREATE TABLE cassandratweet.tweets_by_sentence_graph (
+CREATE TABLE cassandratweet.tweets_by_sentence (
     user_id text,
     sentiment float,
     datetime timestamp,
@@ -15,7 +15,7 @@ CREATE TABLE cassandratweet.tweets_by_sentence_graph (
     PRIMARY KEY (user_id, tweet_id, datetime, sentence_line)
 ) WITH CLUSTERING ORDER BY (tweet_id desc, datetime desc,  sentence_line ASC);
 
-CREATE TABLE cassandratweet.tag_sentiment_graph (
+CREATE TABLE cassandratweet.tag_sentiment (
     tag text,    
     tweetid text,
     sentence_line int,
@@ -26,7 +26,7 @@ CREATE TABLE cassandratweet.tag_sentiment_graph (
     PRIMARY KEY (tag, datetime, userid,tweetid, sentence_line)
 ) WITH CLUSTERING ORDER BY (datetime DESC, userid ASC, tweetid asc, sentence_line asc);
 
-CREATE SEARCH INDEX ON cassandratweet.tag_sentiment_graph  WITH COLUMNS * { docValues:true };
+CREATE SEARCH INDEX ON cassandratweet.tag_sentiment  WITH COLUMNS * { docValues:true };
 
 CREATE KEYSPACE banana WITH replication = { 'class': 'NetworkTopologyStrategy', 'dc1': 1};
 CREATE TABLE banana.dashboards (
