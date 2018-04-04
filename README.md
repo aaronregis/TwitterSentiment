@@ -115,6 +115,6 @@ To batch load the Twitter data into graph go into the Spark Scala REPL,
 dse spark
 ```
 
-Then copy paste the contents of **scala_script.txt** (amend the graph name accordingly) into the REPL. This will take a few minutes to execute.
+Then copy paste the contents of **scala_loadgraph_script.txt** (amend the graph name accordingly) into the REPL. This will take a few minutes to execute.
 
 Once complete you can use DSE Studio to execute traversals and visualize the Twitter Sentiment Data!
