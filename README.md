@@ -11,13 +11,15 @@ Steps
 
 1. Using cqlsh, run the **schema.cql** file to create the TwitterSentiment Data Model as well as the Data Model to store data for the Banana Dashboard.
 
-2. Update **$DSE_HOME/resources/tomcat/conf/server.xml** (tarball install) or **/etc/dse/tomcat/conf/server.xml** (repo install), adding the following inside the \<Host\> tags and put the absolute path to banana/src in the docBase value,
-  
->  \<Context docBase="../../banana/src" path="/banana" /\>
+2. Upload or clone banana directory to a node in the cluster
 
 3. Copy default.json file to \<download location\>/banana/src/app/dashboards/ overwriting any existing file.
 
-5. Copy "**banana**" folder to **$DSE_HOME/resources/banana** (tarball install) or **/etc/dse/banana** (repo install) and then restart Node.
+4. Copy "**banana**" folder to **$DSE_HOME/resources/banana** (tarball install) or **/etc/dse/banana** (repo install) and then restart Node.
+
+5. Update **$DSE_HOME/resources/tomcat/conf/server.xml** (tarball install) or **/etc/dse/tomcat/conf/server.xml** (repo install), adding the following inside the \<Host\> tags and put the absolute path to banana/src in the docBase value,
+  
+>  \<Context docBase="../../banana/src" path="/banana" /\>
 
 6. Once the node is back up and running, go to the URL: 
 
