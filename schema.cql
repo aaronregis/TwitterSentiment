@@ -1,4 +1,4 @@
-CREATE KEYSPACE cassandratweet WITH replication = {'class': 'NetworkTopologyStrategy', 'dc1': '1'}  AND durable_writes = true;
+CREATE KEYSPACE cassandratweet WITH replication = {'class': 'NetworkTopologyStrategy', 'DC1': '1'}  AND durable_writes = true;
 
 
 CREATE TABLE cassandratweet.tweets_by_sentence (
@@ -28,7 +28,8 @@ CREATE TABLE cassandratweet.tag_sentiment (
 
 CREATE SEARCH INDEX ON cassandratweet.tag_sentiment  WITH COLUMNS * { docValues:true };
 
-CREATE KEYSPACE banana WITH replication = { 'class': 'NetworkTopologyStrategy', 'dc1': 1};
+CREATE KEYSPACE banana WITH replication = { 'class': 'NetworkTopologyStrategy', 'DC1': 1};
+
 CREATE TABLE banana.dashboards (
 id text PRIMARY KEY,
 "_version_" bigint,
