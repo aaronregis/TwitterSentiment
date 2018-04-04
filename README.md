@@ -53,7 +53,7 @@ python stream_tweets_server.py
 dse pyspark
 ```
 
-12. Update the ip address & port as required and copy and paste the text from the **Twittersentiment_pyspark.py** script to execute in the repl.
+12. Update the ip address & port as required and copy and paste the text from the **pyspark_script.py** script to execute in the repl.
 
 13. Check that DSE Analytics has connected into the stream_tweets_server and that tweets are streaming in real time and that in the pyspark repl dataframes with twitter data are being created and saved to DSE.
 
@@ -115,6 +115,6 @@ To batch load the Twitter data into graph go into the Spark Scala REPL,
 dse spark
 ```
 
-Then copy paste the contents of **loadinggraph_scala_script.txt** (amend the graph name accordingly) into the REPL. This will take a few minutes to execute.
+Then copy paste the contents of **scala_script.txt** (amend the graph name accordingly) into the REPL. This will take a few minutes to execute.
 
 Once complete you can use DSE Studio to execute traversals and visualize the Twitter Sentiment Data!
