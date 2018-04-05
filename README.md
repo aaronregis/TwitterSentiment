@@ -19,7 +19,7 @@ Steps
 
 5. Update **$DSE_HOME/resources/tomcat/conf/server.xml** (tarball install) or **/etc/dse/tomcat/conf/server.xml** (repo install), adding the following inside the \<Host\> tags and put the absolute path to banana/src in the docBase value,
   
->  \<Context docBase="../../banana/src" path="/banana" /\>
+>  \<Context docBase="/etc/dse/banana/src" path="/banana" /\>
 
 6. Once the node is back up and running, go to the URL: 
 
