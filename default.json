@@ -12,7 +12,7 @@
         "3": {
           "id": 3,
           "color": "#EF843C",
-          "query": "tag:democrat OR tag:republican OR tag:tory OR tag:conservative OR tag:labour OR tag:ukip OR tag:greens",
+          "query": "tag:*",
           "alias": "",
           "pin": false
         }
@@ -627,10 +627,10 @@
   },
   "solr": {
     "server": "/solr/",
-    "core_name": "cassandratweet.tag_sentiment_graph",
+    "core_name": "cassandratweet.tag_sentiment",
     "core_list": [
       "banana.dashboards",
-      "cassandratweet.tag_sentiment_graph"
+      "cassandratweet.tag_sentiment"
     ],
     "global_params": "&useFieldCache=true"
   },
