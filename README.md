@@ -11,7 +11,7 @@ Steps
 
 1. Using cqlsh, run the **schema.cql** file to create the TwitterSentiment Data Model as well as the Data Model to store data for the Banana Dashboard.
 
-2. Upload or clone banana directory to a node in the cluster and unzip,
+2. Upload or clone banana directory to a node in the cluster and unzip if required,
 
 > tar -xvf banana.demo.tar.gz
 
