@@ -47,7 +47,7 @@ nltk.download('punkt')
 
 10. Execute the Twitter API (which will startup and go into a waiting mode ready to accept an incoming connection),
 
-    **NOTE: You need to put in the necessary twitter account app secret keys and amend the listening IP address to be your nodes private IP**
+    **NOTE: You need to update with your twitter account app secret keys and amend the listening IP address to be your nodes private IP - before starting up the script**
 
 ```
 python stream_tweets_server.py
