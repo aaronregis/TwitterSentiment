@@ -73,7 +73,7 @@ Loading Twitter data into DSE Graph
 
 Once you have collected a sufficient amount of data it would now be usefull to load some of this into DSE Graph so that it can be visualized and Gremlin Traversals can be executed against the graph data.
 
-Using DSE Studio, create a new connection to your cluster and create a new Graph. Inside the notebook create the necessary schema,
+Using DSE Studio, create a new connection to your cluster and create a new Graph called "twittergraph". Inside the notebook create the necessary schema,
 
 ```
 schema.propertyKey('userid').Text().ifNotExists().create()
