@@ -17,35 +17,37 @@ Steps
 
 3. Copy default.json file to \<download location\>/banana/src/app/dashboards/ overwriting any existing file.
 
-4. Copy "**banana**" folder to **$DSE_HOME/resources/banana** (tarball install) or **/etc/dse/banana** (repo install) and then restart Node.
+4. Copy "**banana**" folder to **$DSE_HOME/resources/banana** (tarball install) or **/etc/dse/banana** (repo install).
 
 5. Update **$DSE_HOME/resources/tomcat/conf/server.xml** (tarball install) or **/etc/dse/tomcat/conf/server.xml** (repo install), adding the following inside the \<Host\> tags and put the absolute path to banana/src in the docBase value,
   
 >  \<Context docBase="/etc/dse/banana/src" path="/banana" /\>
 
-6. Once the node is back up and running, go to the URL: 
+6. Restart node.
+
+7. Once the node is back up and running, go to the URL: 
 
 >  \<node ip address\>:8983/banana 
   
-7. In the top right of the dashboard click the cog icon (configure), select the "Solr" tab and then in global settings enter,
+8. In the top right of the dashboard click the cog icon (configure), select the "Solr" tab and then in global settings enter,
 
 >  &useFieldCache=true 
 
-8. At the command line execute the following command,
+9. At the command line execute the following command,
 
 ```
 sudo pip install -U textblob
 sudo pip install -U tweepy
 ```
 
-9. Using python, execute the following commands,
+10. Using python, execute the following commands,
 
 ```
 import nltk
 nltk.download('punkt')
 ```
 
-10. Execute the Twitter API (which will startup and go into a waiting mode ready to accept an incoming connection),
+11. Execute the Twitter API (which will startup and go into a waiting mode ready to accept an incoming connection),
 
     **NOTE: You need to update with your twitter account app secret keys and amend the listening IP address to be your nodes private IP - before starting up the script**
 
@@ -53,17 +55,17 @@ nltk.download('punkt')
 python stream_tweets_server.py
 ```
  
-11. Using another terminal, go into the DSE PySpark REPL by issuing this command,
+12. Using another terminal, go into the DSE PySpark REPL by issuing this command,
 
 ```
 dse pyspark
 ```
 
-12. Update the ip address & port as required and copy and paste the text from the **pyspark_script.py** script to execute in the repl.
+13. Update the ip address & port as required and copy and paste the text from the **pyspark_script.py** script to execute in the repl.
 
-13. Check that DSE Analytics has connected into the stream_tweets_server and that tweets are streaming in real time and that in the pyspark repl dataframes with twitter data are being created and saved to DSE.
+14. Check that DSE Analytics has connected into the stream_tweets_server and that tweets are streaming in real time and that in the pyspark repl dataframes with twitter data are being created and saved to DSE.
 
-14. Goto the Banana dashboard and view the data flowing into DSE in real time.
+15. Goto the Banana dashboard and view the data flowing into DSE in real time.
 
 
 Loading Twitter data into DSE Graph
