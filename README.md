@@ -40,7 +40,7 @@ sudo pip install -U textblob
 sudo pip install -U tweepy
 ```
 
-10. Using python, execute the following commands,
+10. Start the python repl (not dse pyspark) by simply typing python at the command line, then once inside the python repl execute the following commands,
 
 ```
 import nltk
