@@ -1,4 +1,5 @@
 #Import the necessary methods from tweepy library
+from __future__ import print_function
 from tweepy.streaming import StreamListener
 from tweepy import OAuthHandler
 from tweepy import Stream
@@ -17,7 +18,7 @@ def errprint(*args, **kwargs):
 # This is a basic listener that just prints received tweets to stdout.
 class StdOutListener(StreamListener):
     def __init__(self, handler):
-        super().__init__()
+        super(StdOutListener, self).__init__()
         self.handler = handler
 
     def on_status(self, status):
