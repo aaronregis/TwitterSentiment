@@ -36,8 +36,7 @@ Steps
 9. At the command line execute the following command,
 
 ```
-sudo pip install -U textblob
-sudo pip install -U tweepy
+sudo pip install -U -r requirements.txt
 ```
 
 10. Start the python repl (not dse pyspark) by simply typing python at the command line, then once inside the python repl execute the following commands,
@@ -47,13 +46,18 @@ import nltk
 nltk.download('punkt')
 ```
 
-11. Execute the Twitter API (which will startup and go into a waiting mode ready to accept an incoming connection),
+11. Execute the Twitter API (which will startup and go into a waiting mode ready to accept an incoming connection). To successfully run it, you either need to have access token & consumer keys that you can obtain via http://apps.twitter.com/.  These values could be specified as:
 
-    **NOTE: You need to update with your twitter account app secret keys and amend the listening IP address to be your nodes private IP - before starting up the script**
+* Command-line parameters: `--access-token`, `--access-secret`, `--consumer-key`, and `--consumer-secret`;
+* Environment variables: `TWITTER_ACCESS_TOKEN`, `TWITTER_ACCESS_SECRET`, `TWITTER_CONSUMER_KEY`, and `TWITTER_CONSUMER_SECRET`.
+
+By default, script fetches tweets that contain some terms that are specified as comma-separated list passed via `--terms` command-line parameter.
 
 ```
-python stream_tweets_server.py
+python3 stream_tweets_server.py --terms="term1,term2"
 ```
+ 
+Besides fetching the tweets by terms, you can also use `--mode=sample` that will fetch a set of tweets freely published by Twitter. Execute script without arguments to find all options.
  
 12. Using another terminal, go into the DSE PySpark REPL by issuing this command,
 
