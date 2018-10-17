@@ -54,7 +54,7 @@ nltk.download('punkt')
 By default, script fetches tweets that contain some terms that are specified as comma-separated list passed via `--terms` command-line parameter.
 
 ```
-python3 stream_tweets_server.py --terms="term1,term2"
+python stream_tweets_server.py --terms="term1,term2"
 ```
  
 Besides fetching the tweets by terms, you can also use `--mode=sample` that will fetch a set of tweets freely published by Twitter. Execute script without arguments to find all options.
