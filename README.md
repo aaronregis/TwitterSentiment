@@ -12,7 +12,7 @@ Steps
 1. Clone banana dashboard to a node in the cluster,
 
 ``` 
-git clone git@github.com:Lucidworks/banana
+git clone https://github.com/Lucidworks/banana
 ```
 
 2. Copy default.json file to \<download location\>/banana/src/app/dashboards/ overwriting any existing file.
