@@ -87,6 +87,8 @@ Once you have collected a sufficient amount of data it would now be usefull to l
 Using DSE Studio, create a new connection to your cluster and create a new Graph called "twittergraph". Inside the notebook create the necessary schema,
 
 ```
+schema.config().option('graph.schema_mode').set('Development')
+
 schema.propertyKey('userid').Text().ifNotExists().create()
 schema.propertyKey('theuserid').Text().ifNotExists().create()
 schema.propertyKey('thetweetid').Text().ifNotExists().create()
