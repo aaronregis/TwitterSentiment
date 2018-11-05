@@ -33,7 +33,7 @@ def getSqlContextInstance(sparkContext):
     return globals()['sqlContextSingletonInstance']
 
 ssc = StreamingContext(sc, 10)
-words = ssc.socketTextStream("192.168.0.40", 10000)
+words = ssc.socketTextStream("172.31.7.237", 10000)
 
 sqlContext.sql("""CREATE TEMPORARY TABLE tweets_by_sentence USING org.apache.spark.sql.cassandra OPTIONS (table "tweets_by_sentence",keyspace "cassandratweet", cluster "DSE Cluster",pushdown "true")""") 
 
