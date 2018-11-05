@@ -1,0 +1,48 @@
+// Not a typical Graph query but fun to use to get a visual look at some of the data thats loaded!
+
+g.V().hasLabel('tweet').both().bothE()
+
+Query 1: Top 10 Most Active Users (OLAP)
+
+// top 10 users with the most tweets
+g.V().hasLabel("user").
+     group("a"). // create a map object "a"
+     by("userid"). // the keys of the map are the userid
+     by(outE("tweeted").count()). // the values of the map are the # of tweets for that user id
+     cap("a"). // a barrier step to force the full population of the object a
+     unfold(). // unfold the map
+     order().  // order the stream 
+     by(values, decr). // by the values in the map
+     limit(10) // only the top 10 
+
+QUERY 2: for a user, list the top 3 tags they use
+
+// pick a top active user from the last query
+
+g.V().has("user", "userid", "ebner_jane").  // use the full primary key to look up the vertex (search not needed)
+     out("tweeted"). // go to their tweets [BONUS: in this data model, would be better to have time stamps on this edge IMO]
+     out("containssentence"). // go to their sentences [BONUS: in this data model, would be better to have tags adjacent to tweets to reduce the # of hops, IMO]
+     out("containstag"). // go to the tags
+     groupCount("result"). // create an object called "results"
+     by(values("tagword")). // the keys for "results". the values will be the counts of the unique keys
+     cap("result").  // a barrier step to force the full population of the object
+     unfold(). // unfold the map
+     order(). // order the results in the stream
+     by(values, decr). // by the values in the map
+     limit(10) // select only the top 3 tags
+
+Query 3: For a tag, list the most influential people on that topic
+
+// pick a top active user from the last query
+
+g.V().has("tag", "tagword", "trump").  // use the full primary key to look up the vertex (search not needed)
+     in("containstag"). // go to the sentences
+     in("containssentence"). // go to the tweets
+     in("tweeted"). // go to the users
+     groupCount("result"). // create an object called "results"
+     by(values("userid")). // the keys for "results". the values will be the counts of the unique keys
+     cap("result").  // a barrier step to force the full population of the object
+     unfold(). // unfold the map
+     order(). // order the results in the stream
+     by(values, decr). // by the values in the map
+     limit(10) // select only the top 3 users
