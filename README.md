@@ -9,29 +9,35 @@ The steps that follow assume you have an up and running DSE Node / Cluster (v5.1
 Steps
 =====
 
-1. Using cqlsh, run the **schema.cql** file to create the TwitterSentiment Data Model as well as the Data Model to store data for the Banana Dashboard.
+1. Upload or clone banana directory to a node in the cluster and unzip if required,
 
-2. Upload or clone banana directory to a node in the cluster and unzip if required,
+> git clone git@github.com:Lucidworks/banana
 
+Or unzip for tarball install
 > tar -xvf banana.demo.tar.gz
 
-3. Copy default.json file to \<download location\>/banana/src/app/dashboards/ overwriting any existing file.
+2. Copy default.json file to \<download location\>/banana/src/app/dashboards/ overwriting any existing file.
 
-4. Copy "**banana**" folder to **$DSE_HOME/resources/banana** (tarball install) or **/etc/dse/banana** (repo install).
+3. Copy "**banana**" folder to **$DSE_HOME/resources/banana** (tarball install) or **/etc/dse/banana** (repo install).
 
-5. Update **$DSE_HOME/resources/tomcat/conf/server.xml** (tarball install) or **/etc/dse/tomcat/conf/server.xml** (repo install), adding the following inside the \<Host\> tags and put the absolute path to banana/src in the docBase value,
+4. Update **$DSE_HOME/resources/tomcat/conf/server.xml** (tarball install) or **/etc/dse/tomcat/conf/server.xml** (repo install), adding the following inside the \<Host\> tags and put the absolute path to banana/src in the docBase value,
   
 >  \<Context docBase="/etc/dse/banana/src" path="/banana" /\>
 
-6. Restart node.
+5. Stop and then restart DSE. i.e,
 
-7. Once the node is back up and running, go to the URL: 
+> sudo service dse stop
+> sudo service dse start
+
+6. Once the node is back up and running, go to the URL: 
 
 >  \<node ip address\>:8983/banana 
   
-8. In the top right of the dashboard click the cog icon (configure), select the "Solr" tab and then in global settings enter,
+7. In the top right of the dashboard click the cog icon (configure), select the "Solr" tab and then in global settings enter,
 
 >  &useFieldCache=true 
+
+8. Using cqlsh, run the **schema.cql** file to create the TwitterSentiment Data Model as well as the Data Model to store data for the Banana Dashboard.
 
 9. At the command line execute the following command,
 
