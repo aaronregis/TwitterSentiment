@@ -74,11 +74,11 @@
             "1y",
             "5y"
           ],
-          "timespan": "24h",
+          "timespan": "1h",
           "timefield": "datetime",
           "timeformat": "",
           "refresh": {
-            "enable": false,
+            "enable": true,
             "interval": 10,
             "min": 3
           },
