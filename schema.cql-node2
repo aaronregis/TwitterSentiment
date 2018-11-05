@@ -33,9 +33,9 @@ CREATE TABLE cassandratweet2.tag_sentiment (
 
 CREATE SEARCH INDEX ON cassandratweet2.tag_sentiment  WITH COLUMNS * { docValues:true };
 
-CREATE KEYSPACE banana1 WITH replication = { 'class': 'NetworkTopologyStrategy', 'DC1': 3};
+CREATE KEYSPACE banana2 WITH replication = { 'class': 'NetworkTopologyStrategy', 'DC1': 3};
 
-CREATE TABLE banana1.dashboards (
+CREATE TABLE banana2.dashboards (
 id text PRIMARY KEY,
 "_version_" bigint,
 dashboard text,
@@ -45,4 +45,4 @@ title text,
 user text
 );
 
-CREATE SEARCH INDEX ON banana1.dashboards  WITH COLUMNS * { docValues:true };
+CREATE SEARCH INDEX ON banana2.dashboards  WITH COLUMNS * { docValues:true };
