@@ -1,8 +1,8 @@
 /* PART 1 - CREATE KEYSPACE AND TABLES FOR THE TWITTER DATA */
 
-CREATE KEYSPACE cassandratweet1 WITH replication = {'class': 'NetworkTopologyStrategy', 'DC1': '3'}  AND durable_writes = true;
+CREATE KEYSPACE cassandratweet2 WITH replication = {'class': 'NetworkTopologyStrategy', 'DC1': '3'}  AND durable_writes = true;
 
-CREATE TABLE cassandratweet1.tweets_by_sentence (
+CREATE TABLE cassandratweet2.tweets_by_sentence (
     user_id text,
     sentiment float,
     datetime timestamp,
@@ -16,7 +16,7 @@ CREATE TABLE cassandratweet1.tweets_by_sentence (
     PRIMARY KEY (user_id, tweet_id, datetime, sentence_line)
 ) WITH CLUSTERING ORDER BY (tweet_id desc, datetime desc,  sentence_line ASC);
 
-CREATE TABLE cassandratweet1.tag_sentiment (
+CREATE TABLE cassandratweet2.tag_sentiment (
     tag text,    
     tweetid text,
     sentence_line int,
@@ -31,7 +31,7 @@ CREATE TABLE cassandratweet1.tag_sentiment (
 
 /* PART 2 - CREATE SEARCH INDEX ON TAG_SENTIMENT TABLE AND CREATE KEYSPACE AND TABLE FOR BANANA DASHBOARD METADATA */
 
-CREATE SEARCH INDEX ON cassandratweet1.tag_sentiment  WITH COLUMNS * { docValues:true };
+CREATE SEARCH INDEX ON cassandratweet2.tag_sentiment  WITH COLUMNS * { docValues:true };
 
 CREATE KEYSPACE banana1 WITH replication = { 'class': 'NetworkTopologyStrategy', 'DC1': 3};
 
