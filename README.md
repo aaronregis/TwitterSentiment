@@ -26,8 +26,8 @@ Or unzip for tarball install
 
 5. Stop and then restart DSE. i.e,
 
-> sudo service dse stop
-> sudo service dse start
+```sudo service dse stop
+sudo service dse start```
 
 6. Once the node is back up and running, go to the URL: 
 
