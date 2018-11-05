@@ -9,12 +9,11 @@ The steps that follow assume you have an up and running DSE Node / Cluster (v5.1
 Steps
 =====
 
-1. Upload or clone banana directory to a node in the cluster and unzip if required,
+1. Clone banana dashboard to a node in the cluster,
 
-> git clone git@github.com:Lucidworks/banana
-
-Or unzip for tarball install
-> tar -xvf banana.demo.tar.gz
+``` 
+git clone git@github.com:Lucidworks/banana
+```
 
 2. Copy default.json file to \<download location\>/banana/src/app/dashboards/ overwriting any existing file.
 
@@ -26,8 +25,10 @@ Or unzip for tarball install
 
 5. Stop and then restart DSE. i.e,
 
-```sudo service dse stop
-sudo service dse start```
+```
+sudo service dse stop
+sudo service dse start
+```
 
 6. Once the node is back up and running, go to the URL: 
 
