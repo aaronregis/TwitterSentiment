@@ -35,9 +35,9 @@ def getSqlContextInstance(sparkContext):
 ssc = StreamingContext(sc, 10)
 words = ssc.socketTextStream("172.31.5.246", 10001)
 
-sqlContext.sql("""CREATE TEMPORARY TABLE tweets_by_sentence1 USING org.apache.spark.sql.cassandra OPTIONS (table "tweets_by_sentence",keyspace "cassandratweet1", cluster "DSE Cluster",pushdown "true")""") 
+sqlContext.sql("""CREATE TEMPORARY TABLE tweets_by_sentence2 USING org.apache.spark.sql.cassandra OPTIONS (table "tweets_by_sentence",keyspace "cassandratweet2", cluster "DSE Cluster",pushdown "true")""") 
 
-sqlContext.sql("""CREATE TEMPORARY TABLE tag_sentiment1 USING org.apache.spark.sql.cassandra OPTIONS (table "tag_sentiment", keyspace "cassandratweet1", cluster "DSE Cluster",pushdown "true")""")
+sqlContext.sql("""CREATE TEMPORARY TABLE tag_sentiment2 USING org.apache.spark.sql.cassandra OPTIONS (table "tag_sentiment", keyspace "cassandratweet2", cluster "DSE Cluster",pushdown "true")""")
 
 def process(time, rdd):
 	print "========= %s =========" % str(time)
@@ -53,7 +53,7 @@ def process(time, rdd):
 			
 			if (wordsDataFrame.count() != 0):
 				print("Attempting Main Tweets DataFrame write")
-				wordsDataFrame.write.format("org.apache.spark.sql.cassandra").options(table="tweets_by_sentence", keyspace = "cassandratweet1").save(mode ="append")
+				wordsDataFrame.write.format("org.apache.spark.sql.cassandra").options(table="tweets_by_sentence", keyspace = "cassandratweet2").save(mode ="append")
 				print("Succeeded.")
 			
 				words6 = words5.flatMap( lambda line: [[x.rstrip('?:!.,;'),line[2],line[7],line[1],line[0],line[3],line[4]] for x in line[5].split(" ")]).filter(lambda line : (len(line[0]) > 3) & (line[3] != 0) & (line[0][:4] != "http") & (line[0] != "this") & (line[0] != "that") & (line[0] != "than") & (line[0] != "about") & (line[0] != "from"))
@@ -61,7 +61,7 @@ def process(time, rdd):
 			
 				if (tagsDataFrame.count() != 0):
 					print("Attempting tags DataFrame write")
-					tagsDataFrame.write.format("org.apache.spark.sql.cassandra").options(table="tag_sentiment", keyspace = "cassandratweet1").save(mode ="append")
+					tagsDataFrame.write.format("org.apache.spark.sql.cassandra").options(table="tag_sentiment", keyspace = "cassandratweet2").save(mode ="append")
 					print("Succeeded.")
 			
    	except Exception, e:
