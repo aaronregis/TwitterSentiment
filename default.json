@@ -512,7 +512,7 @@
             "custom": ""
           },
           "field": "tag",
-          "size": 20,
+          "size": 30,
           "alignment": "vertical and horizontal",
           "fontScale": 3,
           "ignoreStopWords": false,
