@@ -70,7 +70,7 @@ For Windows (Putty) users copy contents of tamday.pkk (raw) to your laptop and i
 
 10. You don't need to do anything, I've just created a single server process on a machine also in AWS that streams the tweets and each of you will simply connect into it later now once I've set it running.
 
-AARON: Back to the presentation..
+Back to the presentation..
 
 --- NOW TIME TO CREATE THE SEARCH INDEX AND COMPLETE THE BANANA SETUP ---
 
@@ -111,7 +111,8 @@ Node2 - https://raw.githubusercontent.com/aaronregis/TwitterSentiment/master/pys
 
     <node ip address>:8983/banana
     
-AARON: Back to the presentation..
+Back to the presentation..
+
 
 --- WE HAVEN'T FINISHED QUITE YET, LET'S VISUALISE THIS DATA IN GRAPH! ---
 
