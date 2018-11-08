@@ -88,7 +88,8 @@ and copy and paste the contents of Part 2 ONLY into cqlsh
     
 13. For those on Node1 or Node2 goto the cog icon in the top right, select the "Solr" tab and amend the keyspace portion of the "Collection Name" value to be cassandratweet1 or cassandratweet2 respectively and Close.
 
-AARON: Setup Twitter app on node0 and node1 then Back to the presentation..
+Back to the presentation.. 
+
 
 --- FINALLY TIME TO FIRE UP OUR REAL-TIME STREAMING CODE IN PYSPARK! ---
 
