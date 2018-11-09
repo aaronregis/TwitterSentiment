@@ -28,7 +28,7 @@ For Windows (Putty) users copy contents of tamday.pkk (raw) to your laptop and i
 
     sudo mv ~/banana /etc/dse/
     
-5. Give the banaa directory the necessary ownership
+5. Give the banana directory the necessary ownership
 
     sudo chown -R cassandra:cassandra /etc/dse/banana/
     
