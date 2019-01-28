@@ -56,10 +56,10 @@ class ServerHandler:
         if self.args.mode == 'terms':
             terms = self.args.terms.split(',')
             errprint("Going to listen for following terms: " + str(terms))
-            self.stream.filter(track=terms, async=True, languages=languages)
+            self.stream.filter(track=terms, is_async=True, languages=languages)
         else:
             errprint("Going to listen for sampled stream")
-            self.stream.sample(async=True, languages=languages)
+            self.stream.sample(is_async=True, languages=languages)
 
         return True
 
