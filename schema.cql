@@ -1,5 +1,7 @@
 /* PART 1 - CREATE KEYSPACE AND TABLES FOR THE TWITTER DATA */
 
+/* Amend Datacenter name (DC1) accordingly and update Replication Factor (3) to correspond with your environment */
+
 CREATE KEYSPACE cassandratweet WITH replication = {'class': 'NetworkTopologyStrategy', 'DC1': '3'}  AND durable_writes = true;
 
 CREATE TABLE cassandratweet.tweets_by_sentence (
@@ -33,6 +35,9 @@ CREATE TABLE cassandratweet.tag_sentiment (
 /* PART 2 - CREATE SEARCH INDEX ON TAG_SENTIMENT TABLE AND CREATE KEYSPACE AND TABLE FOR BANANA DASHBOARD METADATA */
 
 CREATE SEARCH INDEX ON cassandratweet.tag_sentiment  WITH COLUMNS * { docValues:true };
+
+
+/* Amend Datacenter name (DC1) accordingly and update Replication Factor (3) to correspond with your environment */
 
 CREATE KEYSPACE banana WITH replication = { 'class': 'NetworkTopologyStrategy', 'DC1': 3};
 
