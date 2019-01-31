@@ -38,7 +38,9 @@ sudo service dse start
 
 >  &useFieldCache=true 
 
-8. Using cqlsh, run the **schema.cql** file to create the TwitterSentiment Data Model as well as the Data Model to store data for the Banana Dashboard.
+8. Using cqlsh, run the **schema.cql** file to create the TwitterSentiment Data Model as well as the Data Model to store data for the Banana Dashboard. 
+
+NOTE: Before executing schema.cql update as necessary to ensure DataCenter name and Replication Factor value correspond to your environment.
 
 9. At the command line execute the following command,
 
