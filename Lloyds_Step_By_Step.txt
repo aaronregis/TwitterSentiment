@@ -1,4 +1,4 @@
-Lloyds DATASTAX Enabblement Session - Building a real time streaming 'App'
+Lloyds DATASTAX Enablement Session - Building a real time streaming 'App'
 ==========================================================================
 
 FIRST - THE BASICS! CONNECTING TO YOUR DSE NODE IN THE CLOUD (Azure to be precise)
