@@ -1,0 +1,170 @@
+Lloyds DATASTAX Enabblement Session - Building a real time streaming 'App'
+==========================================================================
+
+FIRST - THE BASICS! CONNECTING TO YOUR DSE NODE IN THE CLOUD (Azure to be precise)
+
+For Linux/MacOS users simply startup a terminal session type: ssh ds_user@<Your Node IP>
+
+For Windows (Putty) users just enter your node IP then Username and Password.
+
+--- GETTING STARTED AND INSTALLING THE BANANA DASHBOARD ---
+
+1. From within your home directory clone the Twitter Sentiment and Banana Dashboard repo's to your DSE Node (Linux tip: type "cd ~" wherever you are to get back to your home diretory)
+
+    git clone https://github.com/aaronregis/TwitterSentiment
+    git clone https://github.com/Lucidworks/banana
+    
+2. Go into the Twitter Sentiment directory
+
+    cd TwitterSentiment
+    
+3. Copy the default.json file to the banana directory (This file just loads the config for the dashboard layout and connection to DSE Search)
+
+    cp ~/TwitterSentiment/default.json ~/banana/src/app/dashboards/
+    
+4. Move the whole banana directory to the DSE install directory 
+
+    sudo mv ~/banana /etc/dse/
+    
+5. Give the banaa directory the necessary ownership
+
+    sudo chown -R cassandra:cassandra /etc/dse/banana/
+    
+6. Copy the server.xml file to the DSE tomcat directory (This was just me saving anyone making a mistake when manually amending the tomcat config to point to the banana directory)
+
+    sudo cp ~/TwitterSentiment/server.xml /etc/dse/tomcat/conf/server.xml
+      
+<SKIP> 7. We need disable Always-On SQL so that we have enough resources to run 3 apps concurrently. Use whatever text editor your comfortable with vi/vim/nano and search for alwayson section with is UNCOMMENTED (ignoring the commented section) and set enabled to false
+
+    sudo vi /etc/dse/dse.yaml
+    
+8. Stop and start DSE service (not restart)
+
+    sudo service dse stop
+    sudo service dse start
+     
+    
+--- TIME TO CREATE OUR DATA MODEL ---
+
+
+7. Startup the CQL shell with this command (use your node name as appropriate)
+
+    cqlsh node0 (or node1 or node2)
+    
+8. Goto the schema cql file based on your node from my Github repository i.e (Copy paste URL into your browser),
+
+    Node0 - (https://raw.githubusercontent.com/aaronregis/TwitterSentiment/master/schema.cql) 
+    Node1 - (https://raw.githubusercontent.com/aaronregis/TwitterSentiment/master/schema.cql-node1) 
+    Node2 - (https://raw.githubusercontent.com/aaronregis/TwitterSentiment/master/schema.cql-node2) 
+
+9. Copy and paste ONLY the contents of Part 1 into cqlsh, this will create the Keyspace (think schema in Oracle) and the Tables for our twitter data.
+
+
+--- LET'S HAVE A QUICK LOOK AT THE TWITTER STREAMING PYTHON SCRIPT ---
+
+10. You don't need to do anything, I've just created a single server process on a machine also in AWS that streams the tweets and each of you will simply connect into it later once I've set it running.
+
+
+--- NOW TIME TO CREATE THE SEARCH INDEX AND COMPLETE THE BANANA SETUP ---
+
+11. Go into cqlsh (Linux tip: press up arrow and it should scroll through the previous commands you've used OR see step 7 above) and run ONLY Part 2 of the appropriate schema cql script by copying and pasting into cqlsh
+
+Node0 - https://raw.githubusercontent.com/aaronregis/TwitterSentiment/master/schema.cql 
+Node1 - https://raw.githubusercontent.com/aaronregis/TwitterSentiment/master/schema.cql-node1 
+Node2 - https://raw.githubusercontent.com/aaronregis/TwitterSentiment/master/schema.cql-node2
+
+and copy and paste the contents of Part 2 ONLY into cqlsh
+
+12. Now check your dashboard is up. It uses the DSE Search Index you just created to display the data present in the "tags" table, for now its going to be empty.
+
+    <node ip address>:8983/banana
+    
+<SKIP> 13. For those on Node1 or Node2 goto the cog icon in the top right, select the "Solr" tab and amend the keyspace portion of the "Collection Name" value to be cassandratweet1 or cassandratweet2 respectively and Close.
+
+cd ~/TwitterSentiment
+sudo pip install -U -r requirements.txt
+
+***NOTE*** In case of any issues with pip run the following 
+
+--> export LC_ALL="en_US.UTF-8"
+--> export LC_CTYPE="en_US.UTF-8"
+--> sudo pip install --upgrade setuptools
+
+--- FINALLY TIME TO FIRE UP OUR REAL-TIME STREAMING CODE IN PYSPARK! ---
+
+14. Start up pyspark by issuing this command
+
+    dse pyspark --executor-memory 1G --total-executor-cores 3
+
+dse -u cassandra -p Password1234 pyspark
+
+15. Copy the contents of the approprite pySpark script to a text editor and update the ip address (search for 172.31.7.237 and replace with the Tweet Server IP that I have provided for everyone to use)
+
+Node0 - https://raw.githubusercontent.com/aaronregis/TwitterSentiment/master/pyspark_script.py
+Node1 - https://raw.githubusercontent.com/aaronregis/TwitterSentiment/master/pyspark_script.py-node1
+Node2 - https://raw.githubusercontent.com/aaronregis/TwitterSentiment/master/pyspark_script.py-node2
+
+16. After the change to the IP address has been made copy & paste the contents into the pyspark shell and press enter.
+
+17. Watch the terminal as the code executes and connects into the twitter feed and displays the tweet data in Spark DataFrames ready to be loaded into DSE.
+
+18. Now goto your dashboard again and see how the data is now flowing into the system 
+
+    <node ip address>:8983/banana
+    
+AARON: Back to the presentation..
+
+--- WE HAVEN'T FINISHED QUITE YET, LET'S VISUALISE THIS DATA IN GRAPH! ---
+
+19. Quit the pyspark script by pressing CTRL-C then CTRL-D and wait a few moments.
+
+20. In a browser connect to DSE Studio using the IP of your node and port 9091
+
+    <node ip address>:9091
+    
+
+21. Create a New Connection using your node name and PRIVATE IP address (type ifconfig and get the IP address shown in the Eth0 section). No Username or Password is necessary.
+
+22. Create a New Notebook (using your name) select the connection you just created and then create a NEW Graph. Depending on your node name create a new graph with the corresponding name,
+
+node0 - twittergraph
+node1 - twittergraph1
+node2 - twittergraph2
+
+23. Once inside your notebook copy paste the Graph Schema Creation text (located at the bottom of the main repository page) into the notepad and press SHIFT+ENTER to execute.
+
+24. Check Schema tab in top right to see graphical representation of the Graph Schema you just created.
+
+25. Going back to the SSH terminal, start the Spark Scala REPL which we will be using to run the Batch loading process to populate DSE Graph with our tweets data.
+
+    dse spark --executor-memory 1G --total-executor-cores 3
+    
+26. Copy and paste the Scala load script according to the node you have been assigned into the Spark REPL
+
+node0 - https://raw.githubusercontent.com/aaronregis/TwitterSentiment/master/scala_loadgraph_script.txt
+node1 - https://raw.githubusercontent.com/aaronregis/TwitterSentiment/master/scala_loadgraph_script.txt-node1
+node2 - https://raw.githubusercontent.com/aaronregis/TwitterSentiment/master/scala_loadgraph_script.txt-node2
+
+This will take a few moments to run. 
+
+27. Once complete go back to the notebook in your browser and test out running some of the sample queries in the graph_queries.txt file in the TwitterSentiment repository.
+
+
+------------------------------
+---------- EXTRAS ------------
+------------------------------
+
+28. High Availability Exercise - 
+    
+    Node0 : dse pyspark --executor-memory 1G --total-executor-cores 3 --conf spark.cassandra.output.consistency.level=QUORUM
+
+    Node1 : dse pyspark --executor-memory 1G --total-executor-cores 3 --conf spark.cassandra.output.consistency.level=ALL
+
+    Node2 : Wait until the spark processes are running and then after a few moments simulate a failure by stopping the DSE service on your node with this command: sudo service dse stop
+    
+    What happens to the data flow Node0 and Node1? Check the Dashboard to see if data is still flowing into the system?
+    
+    Now bring down node1 by running this command: sudo service dse stop
+    
+    What has happened to the data flow on Node0?
+    
